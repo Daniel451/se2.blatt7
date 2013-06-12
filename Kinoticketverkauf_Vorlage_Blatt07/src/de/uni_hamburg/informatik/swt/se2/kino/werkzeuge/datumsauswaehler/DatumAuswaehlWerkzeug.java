@@ -2,6 +2,7 @@ package de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.datumsauswaehler;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
 
 import javax.swing.JPanel;
 
@@ -16,11 +17,11 @@ import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Datum;
  * @author SE2-Team
  * @version SoSe 2013
  */
-public class DatumAuswaehlWerkzeug
+public class DatumAuswaehlWerkzeug extends Observable
 {
     private DatumAuswaehlWerkzeugUI _ui;
     private Datum _ausgewaehltesDatum;
-
+    
     /**
      * Initialisiert dieses Werkzeug. Das initial ausgewählte Datum ist der
      * heutige Tag.
@@ -86,6 +87,8 @@ public class DatumAuswaehlWerkzeug
             public void actionPerformed(ActionEvent e)
             {
                 zurueckButtonWurdeGedrueckt();
+                setChanged();
+                notifyObservers(_ausgewaehltesDatum);
             }
         });
 
@@ -95,6 +98,8 @@ public class DatumAuswaehlWerkzeug
             public void actionPerformed(ActionEvent e)
             {
                 weiterButtonWurdeGedrueckt();
+                setChanged();
+                notifyObservers(_ausgewaehltesDatum);
             }
         });
     }
